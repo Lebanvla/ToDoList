@@ -33,6 +33,9 @@ if ($is_authorised) {
                 </div>
                 <button type="submit" class="btn btn-primary">Войти</button>
             </form>
+            <p>
+                Не зарегистрированы? <a href="http://localhost/login/registration.php">Зарегистрироваться</a>
+            </p>
         </div>
     </div>
 </div>

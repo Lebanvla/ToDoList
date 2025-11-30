@@ -1,6 +1,9 @@
 <?php
 $path = "http://localhost/login";
 include($_SERVER["DOCUMENT_ROOT"] . "/logic/common_entities.php");
+if ($is_authorised) {
+    redirect("http://localhost/");
+}
 
 $stmt = $bd->prepare("select * from users where login = :login");
 $stmt->execute([

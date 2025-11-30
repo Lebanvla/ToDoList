@@ -1,6 +1,9 @@
 <?php
 $title = "Регистрация";
 include($_SERVER["DOCUMENT_ROOT"] . "/components/head.php");
+if ($is_authorised) {
+    redirect("http://localhost/");
+}
 ?>
 
 <div class="d-flex justify-content-center align-items-center min-vh-100 bg-light">
@@ -37,6 +40,7 @@ include($_SERVER["DOCUMENT_ROOT"] . "/components/head.php");
                 </div>
                 <button type="submit" class="btn btn-primary w-100">Зарегистрироваться</button>
             </form>
+            Зарегистрированы? <a href="http://localhost/login">Войдите</a>
         </div>
     </div>
 </div>

@@ -1,7 +1,9 @@
 <?php
 $path = "http://localhost/login/registration.php";
 include($_SERVER["DOCUMENT_ROOT"] . "/logic/common_entities.php");
-echo "Here";
+if ($is_authorised) {
+    redirect("http://localhost/");
+}
 if ($passwordCheck !== $password) {
     redirect("$path?error=password_repeat_error");
 }
