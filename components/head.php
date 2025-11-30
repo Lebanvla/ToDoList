@@ -1,8 +1,8 @@
 <?php
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https" : "http";
 $host = $_SERVER['HTTP_HOST'];
-$address = $protocol . "://" . $host;
-include($_SERVER["DOCUMENT_ROOT"] . "logic/common_entities.php");
+$address =  "$protocol://$host";
+include($_SERVER["DOCUMENT_ROOT"] . "/logic/common_entities.php");
 ?>
 
 <head>

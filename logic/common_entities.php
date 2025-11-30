@@ -11,6 +11,13 @@ if ($is_authorised) {
     $user_id = $_SESSION["id"];
 }
 
+if (!$is_authorised && $need_authorisation) {
+    redirect("http://localhost/login");
+}
+if ($is_authorised) {
+    $user_id = $_SESSION["id"];
+}
+
 
 function redirect(string $location)
 {
