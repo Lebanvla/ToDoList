@@ -1,4 +1,5 @@
 <?php
+$need_authorisation = false;
 $path = "http://localhost/login";
 include($_SERVER["DOCUMENT_ROOT"] . "/logic/common_entities.php");
 if ($is_authorised) {

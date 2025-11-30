@@ -1,4 +1,5 @@
 <?php
+$need_authorisation = false;
 $title = "Регистрация";
 include($_SERVER["DOCUMENT_ROOT"] . "/components/head.php");
 if ($is_authorised) {
