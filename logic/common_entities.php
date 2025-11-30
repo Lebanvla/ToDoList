@@ -7,6 +7,10 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 $is_authorised = isset($_SESSION["id"]);
+if ($is_authorised) {
+    $user_id = $_SESSION["id"];
+}
+
 
 function redirect(string $location)
 {
