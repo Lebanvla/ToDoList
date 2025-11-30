@@ -26,7 +26,7 @@
                 <td><?= $created_timestamp ?></td>
                 <td><?= $ended_timestamp ?></td>
                 <td>
-                    <a href="http://localhost/pages/projects/update?id=" <?= $row["id"] ?> class="btn btn-success">
+                    <a href='http://localhost/pages/projects/update.php?id=<?= $row["id"] ?>' class="btn btn-success">
                         Изменить проект
                     </a>
                 </td>
