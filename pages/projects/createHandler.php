@@ -1,4 +1,5 @@
 <?php
+$need_authorisation = true;
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     include($_SERVER["DOCUMENT_ROOT"] . "/logic/common_entities.php");
     if (!isset($_POST["name"]) || !isset($_POST["description"])) {

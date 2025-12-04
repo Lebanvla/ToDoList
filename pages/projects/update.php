@@ -16,7 +16,7 @@ if (!$project) {
 }
 ?>
 <div class="d-flex justify-content-center align-items-center min-vh-100 bg-light">
-    <div class="card text-center w-100" style="max-width: 60rem;"> <!-- Увеличил max-width -->
+    <div class="card text-center w-100" style="max-width: 60rem;">
         <div class="card-header bg-success text-white">
             <h5 class="card-title mb-0">Редактирование проекта</h5>
         </div>

@@ -1,4 +1,5 @@
 <?php
+$need_authorisation = true;
 include($_SERVER["DOCUMENT_ROOT"] . "/logic/common_entities.php");
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $id = $_POST["id"];
