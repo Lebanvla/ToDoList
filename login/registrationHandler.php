@@ -2,18 +2,14 @@
 $need_authorisation = false;
 $path = "http://localhost/login/registration.php";
 include($_SERVER["DOCUMENT_ROOT"] . "/logic/common_entities.php");
+include($_SERVER["DOCUMENT_ROOT"] . "/model/User.php");
 if ($is_authorised) {
     redirect("http://localhost/");
 }
 if ($passwordCheck !== $password) {
     redirect("$path?error=password_repeat_error");
 }
-$stmt = $bd->prepare("select * from users where login = :login");
-$stmt->execute([
-    "login" => $_POST["login"]
-]);
-
-if (count($stmt->fetchAll()) > 0) {
+if (count(User::getByLogin($_POST["login"])) > 0) {
     redirect("$path?error=user_is_exist");
 }
 if (!filter_var($_POST["login"], FILTER_VALIDATE_EMAIL)) {
@@ -24,7 +20,7 @@ if (!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z0-9_@!]{7,}$/", $_POST["
 }
 $login = $_POST["login"];
 $passwordHash = password_hash($_POST["password"], PASSWORD_ARGON2I);
-$bd->prepare("insert into users(login, password) values (:login, :password)")->execute([
+User::create([
     "login" => $login,
     "password" => $passwordHash
 ]);

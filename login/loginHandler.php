@@ -2,15 +2,12 @@
 $need_authorisation = false;
 $path = "http://localhost/login";
 include($_SERVER["DOCUMENT_ROOT"] . "/logic/common_entities.php");
+include($_SERVER["DOCUMENT_ROOT"] . "/model/User.php");
 if ($is_authorised) {
     redirect("http://localhost/");
 }
 
-$stmt = $bd->prepare("select * from users where login = :login");
-$stmt->execute([
-    "login" => $_POST["login"]
-]);
-$result = $stmt->fetch();
+$result = User::getByLogin($_POST["login"]);
 
 if (!$result) {
     redirect("$path?error=login_or_password_error");
