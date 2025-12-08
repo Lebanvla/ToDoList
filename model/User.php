@@ -17,11 +17,7 @@ class User extends Model
     public static function getByLogin(string $login): array
     {
         return User::getBy(conditions: [
-            "login" =>
-            [
-                "operation" => "=",
-                "value" => $login
-            ]
+            "login" => $login
         ]);
     }
 }

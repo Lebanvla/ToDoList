@@ -20,9 +20,8 @@ if (!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z0-9_@!]{7,}$/", $_POST["
 }
 $login = $_POST["login"];
 $passwordHash = password_hash($_POST["password"], PASSWORD_ARGON2I);
-User::create([
+$_SESSION["id"] = User::create([
     "login" => $login,
     "password" => $passwordHash
 ]);
-$_SESSION["id"] = $bd->lastInsertId();
 redirect("http://localhost");

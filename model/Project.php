@@ -20,11 +20,7 @@ class Project extends Model
     public static function getUsersProjects($user): array
     {
         return User::getBy(conditions: [
-            "user" =>
-            [
-                "operation" => "=",
-                "value" => $user
-            ]
+            "user" => $user
         ]);
     }
 }

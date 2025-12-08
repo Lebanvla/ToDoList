@@ -13,11 +13,12 @@ abstract class Model
      * 
      * @param array|null $conditions Формат массива условий:
      * [
-     *     'field1' => [
-     *         'operation' => '=', // Оператор сравнения (=, !=, >, <, LIKE и т.д.)
-     *         'value' => mixed    // Значение для сравнения
+     *     'field1' => 'value1', // упрощенный формат (эквивалентно ['operation' => '=', 'value' => 'value1'])
+     *     'field2' => [         // полный формат
+     *         'operation' => '=', 
+     *         'value' => 'value2'
      *     ],
-     *     'field2' => [
+     *     'field3' => [         // несколько условий для одного поля
      *         [
      *             'operation' => '>',
      *             'value' => 10
@@ -51,9 +52,19 @@ abstract class Model
                 );
             }
 
-            $conditionsList = isset($fieldConditions['operation'])
-                ? [$fieldConditions]
-                : $fieldConditions;
+            // Преобразование упрощенного формата в полный
+            if (!is_array($fieldConditions) || !isset($fieldConditions['operation'])) {
+                // Если это не массив или это простой массив (не ассоциативный с 'operation'),
+                // преобразуем в упрощенный формат
+                $fieldConditions = [
+                    'operation' => '=',
+                    'value' => $fieldConditions
+                ];
+            }
+
+            $conditionsList = isset($fieldConditions[0])
+                ? $fieldConditions  // уже массив условий
+                : [$fieldConditions]; // один элемент в массиве условий
 
             foreach ($conditionsList as $condition) {
                 if (!isset($condition['operation'], $condition['value'])) {
@@ -384,9 +395,7 @@ abstract class Model
      */
     public static function updateById(int|string $id, array $data): bool
     {
-        $updated = self::update($data, [
-            'id' => ['operation' => '=', 'value' => $id]
-        ]);
+        $updated = self::update($data, ['id' => $id]); // Упрощенный формат
         return $updated > 0;
     }
 
@@ -398,12 +407,7 @@ abstract class Model
      */
     public static function deleteById(int|string $id): int
     {
-        return self::deleteBy([
-            "id" => [
-                "operation" => "=",
-                "value" => $id
-            ]
-        ]);
+        return self::deleteBy(['id' => $id]); // Упрощенный формат
     }
 
     abstract protected static function getFields(): array;
