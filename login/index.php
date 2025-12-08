@@ -29,7 +29,7 @@ if ($is_authorised) {
                 </div>
                 <div class="mb-3 text-start">
                     <label for="password" class="form-label">Пароль</label>
-                    <input type="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z0-9_@!]{7,}$" class="form-control" name="password" id="password" required>
+                    <input type="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z0-9_@!]{7,}$" class="form-control" name="password" id="password" value="Qwerty123" required>
                     <div id="loginHelp" class="form-text">Введите пароль</div>
                 </div>
                 <button type="submit" class="btn btn-primary">Войти</button>

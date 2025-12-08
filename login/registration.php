@@ -30,12 +30,12 @@ if ($is_authorised) {
                 </div>
                 <div class="mb-3 text-start">
                     <label for="password" class="form-label">Пароль</label>
-                    <input type="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z0-9_@!]{7,}$" class="form-control" name="password" id="password" required>
+                    <input type="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z0-9_@!]{7,}$" value="Qwerty123" class="form-control" name="password" id="password" required>
                     <div id="loginHelp" class="form-text">Введите пароль</div>
                 </div>
                 <div class="mb-3 text-start">
                     <label for="passwordCheck" class="form-label">Повторите пароль</label>
-                    <input type="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z0-9_@!]{7,}$" class="form-control" name="passwordCheck" id="passwordCheck" required>
+                    <input type="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z0-9_@!]{7,}$" value="Qwerty123" class="form-control" name="passwordCheck" id="passwordCheck" required>
                     <div id="loginHelp" class="form-text">Повторите пароль</div>
 
                 </div>
