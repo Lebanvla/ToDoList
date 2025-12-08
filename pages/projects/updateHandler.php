@@ -1,53 +1,59 @@
 <?php
 $need_authorisation = true;
 include($_SERVER["DOCUMENT_ROOT"] . "/logic/common_entities.php");
+include($_SERVER["DOCUMENT_ROOT"] . "/model/Project.php");
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $stmt = $bd->prepare(
-        "
-                            select 
-                                name, description, created_at,
-                                is_ended, ended_at 
-                            from 
-                                    projects 
-                            where 
-                                id = :project and user = :user
-                        "
-    );
-    $stmt->execute([
-        "project" => $_POST["id"],
-        "user" => $_SESSION["id"]
-    ]);
-    $result = $stmt->fetch();
-    if (!$result) {
+    if (!isset($_POST["id"])) {
         redirect("http://localhost/");
     }
-    extract($result);
+    $project_id = $_POST["id"];
+    $projects = Project::getBy(
+        null,
+        [
+            "id" => [
+                "value" => $project_id,
+                "operation" => "="
+            ],
+            "user" => [
+                "value" => $user_id,
+                "operation" => "="
+            ]
+        ]
+    );
+
+    if (empty($projects)) {
+        redirect("http://localhost/");
+    }
+
+    $project = $projects[0];
+
     $updates = [];
-    $values = [];
 
-    if ($name !== $_POST["name"]) {
-        $updates[] = "name = ?";
-        $values[] = $_POST["name"];
-    }
+    $new_name = trim($_POST["name"] ?? '');
+    $new_description = trim($_POST["description"] ?? '');
+    $new_is_ended = isset($_POST["is_ended"]);
 
-    if ($description !== $_POST["description"]) {
-        $updates[] = "description = ?";
-        $values[] = $_POST["description"];
+    if ($project["name"] !== $new_name && $new_name !== '') {
+        $updates["name"] = $new_name;
     }
 
-    if ($is_ended !== $_POST["is_ended"]) {
-        $updates[] = "is_ended = ?";
-        $values[] = $_POST["is_ended"];
-        $is_ended = isset($_POST["is_ended"]) && $_POST["is_ended"];
-        $updates[] = "ended_at = " . ($is_ended ? "CURRENT_TIMESTAMP()" : "NULL");
+    if ($project["description"] !== $new_description) {
+        $updates["description"] = $new_description;
     }
-    if (count($values) === 0) {
-        redirect("/pages/projects/list.php");
+
+    $current_is_ended = (bool) ($project["is_ended"] ?? false);
+
+    if ($current_is_ended !== $new_is_ended) {
+        $updates["is_ended"] = $new_is_ended ? 1 : 0;
+        $updates["ended_at"] = $new_is_ended ? date('Y-m-d H:i:s') : null;
     }
-    $sql = 'update projects set ' . implode(", ", $updates) . " where id = " . $_POST["id"];
-    $stmt = $bd->prepare($sql);
-    $stmt->execute($values);
-    redirect("/pages/projects/list.php");
+
+    if (!empty($updates)) {
+        Project::updateById($project_id, $updates);
+    }
+
+    redirect("/pages/projects");
 } else {
     redirect("http://localhost/");
 }

@@ -19,7 +19,7 @@
             $ended_timestamp = !is_null($row['ended_at']) ? date('d.m.Y', strtotime($row['ended_at'])) : "Не завершено";
         ?>
             <tr>
-                <td><a href=<?= "$address/pages/projects/card?id=" . $row["id"] ?>><?= htmlspecialchars($row["name"]) ?></td>
+                <td><a href=<?= "$address/pages/projects/card.php?id=" . $row["id"] ?>><?= htmlspecialchars($row["name"]) ?></td>
                 <td><?= getExcerpt(htmlspecialchars($row["description"]), 50) ?></td>
                 <td><?= ($row["is_ended"] ? "Завершено" : "В процессе") ?></td>
 

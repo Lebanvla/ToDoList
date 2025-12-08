@@ -4,8 +4,6 @@ $title = "Создание проекта";
 include($_SERVER["DOCUMENT_ROOT"] . "/components/head.php");
 ?>
 
-<div>
-</div>
 <div class="d-flex justify-content-center align-items-center min-vh-100 bg-light">
     <div class="card text-center w-100" style="max-width: 30rem;">
         <div class="card-header bg-success text-white">

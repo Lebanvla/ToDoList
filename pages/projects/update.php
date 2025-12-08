@@ -2,16 +2,13 @@
 $need_authorisation = true;
 $title = "Изменение проекта";
 include($_SERVER["DOCUMENT_ROOT"] . "/components/head.php");
+include($_SERVER["DOCUMENT_ROOT"] . "/model/Project.php");
 $id = $_GET["id"];
-$stmt = $bd->prepare("select name, description, created_at, is_ended, ended_at from projects where id = :project and user = :user");
-$stmt->execute(
-    [
-        "project" => $id,
-        "user" => $_SESSION["id"]
-    ]
-);
-$project = $stmt->fetch();
-if (!$project) {
+$project = Project::getBy(conditions: [
+    "id" => $id,
+    "user" => $user_id
+])[0];
+if (count($project) === 0) {
     redirect("http://localhost/");
 }
 ?>

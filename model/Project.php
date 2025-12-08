@@ -1,5 +1,5 @@
 <?php
-
+include_once("Model.php");
 class Project extends Model
 {
     protected static ?string $tableName = "projects";
@@ -19,7 +19,7 @@ class Project extends Model
 
     public static function getUsersProjects($user): array
     {
-        return User::getBy(conditions: [
+        return Project::getBy(conditions: [
             "user" => $user
         ]);
     }
